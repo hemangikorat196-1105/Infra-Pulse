@@ -1,0 +1,19 @@
+import React from "react";
+import { User, Building2, Bell, Palette, ShieldCheck, Save } from "lucide-react";
+import { PageHeader, Button, Badge, Input } from "../components/common";
+
+export default function Settings(){
+ const [saved,setSaved]=React.useState(false); const save=()=>{setSaved(true);setTimeout(()=>setSaved(false),1800)};
+ return <div><PageHeader title="Settings" description="Organization, project, notification and profile preferences." actions={<Button onClick={save}><Save size={16}/>Save changes</Button>}/>
+ <div className="grid gap-5 lg:grid-cols-3"><div className="space-y-3 lg:col-span-1">{[["Organization settings",Building2],["Project settings",ShieldCheck],["Notifications",Bell],["Theme",Palette],["Profile",User],["Roles & permissions",ShieldCheck]].map(([x,I],i)=><button key={x} className={`surface flex w-full items-center gap-3 p-4 text-left ${i===0?"border-teal bg-teal/5":""}`}><I size={18} className="text-teal"/><span className="text-sm font-semibold">{x}</span></button>)}</div>
+ <div className="space-y-5 lg:col-span-2"><Section icon={Building2} title="Organization settings"><div className="grid gap-4 sm:grid-cols-2"><Field label="Organization name" value="InfraWorks Group"/><Field label="Default timezone" value="Asia/Kolkata"/><Field label="Primary region" value="India — Gujarat"/><Field label="Default currency" value="INR (₹)"/></div></Section>
+ <Section icon={ShieldCheck} title="Project settings"><div className="grid gap-4 sm:grid-cols-2"><Field label="Schedule variance threshold" value="3 days"/><Field label="AI auto-approval threshold" value="90%"/><Field label="Default report cut-off" value="18:00"/><Field label="Work week" value="Monday — Saturday"/></div></Section>
+ <Section icon={Bell} title="Notification preferences"><Toggle text="Critical schedule alerts" on/><Toggle text="Low-confidence AI matches" on/><Toggle text="Missing daily reports" on/><Toggle text="Weekly project digest" /></Section>
+ <Section icon={Palette} title="Theme"><div className="flex gap-3"><button className="rounded-xl border-2 border-teal bg-white px-5 py-3 text-sm font-semibold dark:bg-slate-950">System</button><button className="rounded-xl border px-5 py-3 text-sm">Light</button><button className="rounded-xl border px-5 py-3 text-sm">Dark</button></div></Section>
+ <Section icon={User} title="Profile settings"><div className="grid gap-4 sm:grid-cols-2"><Field label="Name" value="Hemangi Mehta"/><Field label="Email" value="admin@infrapulse.app"/></div></Section>
+ <Section icon={ShieldCheck} title="Role & permissions"><div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-800"><Badge tone="teal">Project Admin</Badge><p className="mt-2 text-sm muted">Full access to project workspace, schedule review, AI queue, reports and analytics. Backend enforcement is a future integration point.</p></div></Section>
+ {saved&&<div className="rounded-xl bg-teal/10 p-3 text-sm font-semibold text-teal-700">Settings saved to the local demo state.</div>}</div></div></div>
+}
+function Section({icon:Icon,title,children}){return <section className="surface p-5"><div className="mb-5 flex items-center gap-2"><Icon size={18} className="text-teal"/><h2 className="font-semibold">{title}</h2></div>{children}</section>}
+function Field({label,value}){return <div><label className="mb-1.5 block text-sm font-medium">{label}</label><Input defaultValue={value}/></div>}
+function Toggle({text,on=false}){const [v,setV]=React.useState(on);return <label className="flex cursor-pointer items-center justify-between rounded-xl border p-3"><span className="text-sm">{text}</span><button type="button" onClick={()=>setV(!v)} className={`relative h-6 w-11 rounded-full transition ${v?"bg-teal":"bg-slate-300 dark:bg-slate-700"}`} aria-label={text}><span className={`absolute top-1 h-4 w-4 rounded-full bg-white transition ${v?"left-6":"left-1"}`}/></button></label>}

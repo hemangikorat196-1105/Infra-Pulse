@@ -1,0 +1,1 @@
+export { aiItems } from './mockData.js';
