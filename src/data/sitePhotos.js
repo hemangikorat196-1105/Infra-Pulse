@@ -1,1 +1,0 @@
-export { photos } from './mockData.js';

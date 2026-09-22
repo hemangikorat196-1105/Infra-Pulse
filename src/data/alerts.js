@@ -1,1 +1,0 @@
-export { alerts } from './mockData.js';

@@ -1,1 +1,0 @@
-export { ProgressBar as default, ProgressBar } from '../common.jsx';

@@ -1,1 +1,0 @@
-export { team } from './mockData.js';

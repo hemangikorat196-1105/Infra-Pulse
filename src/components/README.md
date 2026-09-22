@@ -1,1 +1,0 @@
-Reusable UI is implemented in common.jsx and ui.jsx. The components cover AppShell, Sidebar, MobileNav, Topbar, Logo, ThemeToggle, ProjectSwitcher, KpiCard, StatusBadge, ProgressBar, EmptyState, UploadDropzone, ChartCard, MilestoneTimeline, and modal/toast primitives.
